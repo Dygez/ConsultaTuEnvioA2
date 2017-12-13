@@ -3,6 +3,19 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
+    "paths": {
+      "@components/*":["app/components/*"],
+      "@utilidades/*":["app/utilidades/*"],
+      "@classes/*":["app/classes/*"],
+      "@models/*":["app/Model/*"],
+      "@config/*":["app/config/*"],
+      "@pipes/*":["app/pipes/*"],
+      "@utils/*":["app/components/utils/*"],
+      "@services/*":["app/services/*"],
+      "@model/*":["app/model/*"],
+      "@env/*":["environments/*"]
+    },
+
     "module": "es2015",
     "types": []
   },
