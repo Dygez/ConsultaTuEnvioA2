@@ -1,0 +1,8 @@
+<div *ngIf="mostrar" class="container col-sm-12">
+  <div class="panel-heading panel-dark" align="left">
+      <img src="/WebConsultasEnvioA2/Imagenes/documents_32.png">  {{'DOCUMENTOS' | Translate}}
+  </div>
+  <div class="panel-body left-right-border bottom-border">
+      <input class="btn btn-primary" type="button" (click)="callPDF()" value="{{ 'Document' | Translate }}"><label *ngIf="mostrarLoading" class="miniloader" width="100%"></label>
+  </div>
+</div>

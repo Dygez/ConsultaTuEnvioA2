@@ -4,15 +4,12 @@
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
     "paths": {
-      "@components/*":["app/components/*"],
-      "@utilidades/*":["app/utilidades/*"],
-      "@classes/*":["app/classes/*"],
-      "@models/*":["app/Model/*"],
-      "@config/*":["app/config/*"],
-      "@pipes/*":["app/pipes/*"],
-      "@utils/*":["app/components/utils/*"],
-      "@services/*":["app/services/*"],
-      "@model/*":["app/model/*"],
+      "@components/*":["modules/ConsultaEnvio/components/*"],
+      "@directives/*":["modules/ConsultaEnvio/directives/*"],
+      "@models/*":["modules/ConsultaEnvio/model/*"],
+      "@pipes/*":["modules/ConsultaEnvio/pipes/*"],
+      "@services/*":["modules/ConsultaEnvio/services/*"],
+      "@model/*":["modules/ConsultaEnvio/model/*"],
       "@env/*":["environments/*"]
     },
 

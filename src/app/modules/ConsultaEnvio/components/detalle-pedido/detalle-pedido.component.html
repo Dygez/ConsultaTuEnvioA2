@@ -1,8 +1,64 @@
-<p>
-  detalle-pedido works!
-</p>
+<div class="container col-sm-12">
+    <div class="panel-heading panel-dark"><img src="/WebConsultasEnvioA2/Imagenes/Order_32.png">  {{'ORDER DATA' | Translate}}</div>
+    <div class="panel-body left-right-border">
+        <table width="90%">
+            <tr>
+                <td width="50%"><label class="background-important" i18n>{{'No Delivery' | Translate}}</label> <label class="label-important label-mas-important" name="_delivery"> {{ order.ALBARAN }} </label></td>
+                <td width="50%"><label class="background-important" i18n>{{'Date Order' | Translate}}</label> <label class="label-important" name="_orderDate"> {{ order.FECHA_ORDEN | date: 'dd/MM/yyyy' }} </label></td>
+            </tr>
+            <tr>
+                <td width="50%"><label class="background-important" i18n>{{'Status' | Translate}}</label> <label class="label-important" name="_status"> {{ order.DESCRIPCION_ESTADO }} </label></td>
+                <td width="50%"><label class="background-important" i18n>{{'Date Dispatch' | Translate}}</label> <label class="label-important" name="_dispatchDate"> {{ order.FECHA_SALIDA | date: 'dd/MM/yyyy' }} </label></td>
+            </tr>
+            <tr>
+                <td width="50%"><label class="background-important" i18n>{{'Order Customer' | Translate}}</label> <label class="label-important"  name="_customerOrder"> {{ order.PEDIDO_CLIENTE }} </label></td>
+                <td width="50%"><label class="background-important" i18n>{{'Order Type' | Translate}}</label> <label class="label-important" name="_type">{{ order.DES_TIPO_ENVIO }} </label></td>
+            </tr>
+            <tr>
+                <td width="50%"><label class="background-important" i18n>{{'Division' | Translate}}</label> <label class="label-important" name="_division"> {{ order.DIVISION }} </label></td>
+                <td width="50%"><label class="background-important" i18n>{{'Refund' | Translate }}</label> <label class="label-important" name="_refund"> </label></td>
+            </tr>
+            <tr>
+                <td width="50%"><label class="background-important" i18n>{{'Shipping' | Translate}}</label> <label class="label-important" name="_shipping"> {{ order.TRANSPORTISTA }} </label></td>
+                <td width="50%"><label class="background-important" i18n>{{'No Expedition' | Translate}}</label> <label class="label-important" name="_dispatchNo"> {{ order.NUMERO_EXPEDICION }} </label></td>
+            </tr>
+            <tr>
+                <td colspan="2" width="100%"><label class="background-important" i18n>{{'Observation' | Translate}}</label> <label class="label-important" name="_observations"></label></td>
+            </tr>
+        </table>
+    </div>
+</div>
 
-
-<button (click)="changeText()">Change</button>
-<button (click)="showText()">Show Text</button>
-<a (click)="navigateTo()" >Go to Seguridad</a>
+<div class="container col-sm-12" *ngIf="plataformaVisible;" data-toggle="collapse" href="#plataforma" on-click="changeGlyph()">
+        <div class="panel-heading panel-dark"><img src="/WebConsultasEnvioA2/Imagenes/plataforma_32.png"> {{'PLATAFORMA' | Translate}} <span [class]="glyph"></span></div>
+        <div class="panel-body left-right-border collapse" id="plataforma" >
+            <table width="90%">
+                <tr>
+                    <td width="50%"><label class="background-important" i18n>{{'Codigo Oficina' | Translate}}</label><label class="label-important" name="_delivery"> {{ plataforma.PLAZA }} </label></td>
+                    <td width="50%"><label class="background-important" i18n>{{'Plaza' | Translate}}</label><label class="label-important" name="_delivery"> {{ plataforma.PLAZA }} </label></td>
+                </tr>
+                <tr colspan="2">
+                    <td width="50%"><label class="background-important" i18n>{{'Oficina' | Translate}}</label><label class="label-important" name="_delivery"> {{ plataforma.NOMBRE_OFICINA }} </label></td>
+                </tr>
+                <tr colspan="2">
+                    <td width="50%"><label class="background-important" i18n>{{'Dirección' | Translate}}</label><label class="label-important" name="_delivery"> {{ plataforma.DIRECCION_OFICINA }} </label></td>
+                </tr>
+                <tr colspan="2">
+                    <td width="50%"><label class="background-important" i18n>{{'Localidad' | Translate}}</label><label class="label-important" name="_delivery"> {{ plataforma.POBLACION_OFICINA }} </label></td>
+                </tr>
+                <tr colspan="2">
+                    <td width="50%"><label class="background-important" i18n>{{'Provincia' | Translate}}</label><label class="label-important" name="_delivery"> {{ plataforma.PROVINCIA }} </label></td>
+                </tr>
+                <tr>
+                    <td width="50%"><label class="background-important" i18n>{{'PC' | Translate}}</label><label class="label-important" name="_delivery"> {{ plataforma.CP_OFICINA }} </label></td>
+                    <td width="50%"><label class="background-important" i18n>{{'Tfno.' | Translate}}</label><label class="label-important" name="_delivery"> {{ plataforma.TELEFONO }} </label></td>
+                </tr>
+                <tr colspan="2">
+                    <td width="50%"><label class="background-important" i18n>{{'Email' | Translate}}</label><label class="label-important" name="_delivery"> {{ plataforma.EMAIL }} </label></td>
+                </tr>
+                <tr colspan="2">
+                    <td width="50%"><label class="background-important" i18n>{{'Horario Oficina' | Translate}}</label><label class="label-important" name="_delivery"> {{ plataforma.HORARIO }} </label></td>
+                </tr>
+            </table>
+        </div>    
+</div>

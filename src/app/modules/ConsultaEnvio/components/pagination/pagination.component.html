@@ -1,0 +1,12 @@
+<div class="pagination" *ngIf="count > 0">
+    <label>{{ getMin() }} of {{ getMax() }} ({{ count }} total items)</label>
+    <br>
+    <label> - {{ totalPages() }} pages</label>
+    <button (click)="onPrev()" [disabled]="page === 1 || loading" [ngClass]="{ 'disabled': page === 1 || loading }">Previous</button>
+    <button 
+      *ngFor="let pageNum of getPages()" 
+      (click)="onPage(pageNum)"
+      [ngClass]="{'active': pageNum === page, 'disabled': loading}">{{ pageNum }}>
+    </button>
+    <button (click)="onNext()" [disabled]="lastPage() || loading" [ngClass]="{ 'disabled': lastPage() || loading }">Next</button>
+  </div>

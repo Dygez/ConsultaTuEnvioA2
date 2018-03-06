@@ -1,1 +1,45 @@
+<div class="container col-sm-12" style="margin:0 auto;"> 
+        <!-- width:1800px; -->
+<table width="100%">
+    <tr>
+        <td>
+            <div [ngSwitch]="main.SCL" class="container col-sm-9">
+                <div *ngSwitchCase="'DEFAULT'">
+                <img src="/WebConsultasEnvioA2/Imagenes/fondoWebICP_1000.png" style="border: 0px">
+                </div>
+                <div *ngSwitchCase="'NC'">
+                    <img src="/WebConsultasEnvioA2/Imagenes/fondoWebICP_1000.png" style="border: 0px">
+                </div>
+                <div *ngSwitchCase="'JAZZTEL'">
+                <img src="/WebConsultasEnvioA2/Imagenes/fondoWebICP_Jazztel_1000.png" style="border: 0px">
+                </div>
+                <div *ngSwitchCase="'ORANGE'">
+                    <img src="/WebConsultasEnvioA2/Imagenes/fondoWebICP_Orange_1000.png" style="border: 0px">
+                </div>
+                <div *ngSwitchCase="'BP'">
+                        <img src="/WebConsultasEnvioA2/Imagenes/fondoWebICP_BP_1000.png" style="border: 0px">
+                </div>
+                <div *ngSwitchDefault>
+                    <img src="/WebConsultasEnvioA2/Imagenes/fondoWebICP_1000.png" style="border: 0px">
+                </div>
+            </div>
+            <div class="col-sm-3" style="vertical-align:-webkit-baseline-middle; padding-top: 25px">
+                <select [(ngModel)]="langValue" title="" class="selectpicker col-sm-3" (change)="setValueLang()" >
+                        <option [ngValue]="0" data-content='<center><img src="/WebConsultasEnvioA2/Imagenes/es.png"></center>'></option>
+                        <option [ngValue]="1" data-content='<center><img src="/WebConsultasEnvioA2/Imagenes/en.png"></center>'></option>
+                        <option [ngValue]="2" data-content='<center><img src="/WebConsultasEnvioA2/Imagenes/pt.png"></center>'></option>
+                        <option [ngValue]="3" data-content='<center><img src="/WebConsultasEnvioA2/Imagenes/it.png"></center>'></option>
+                </select>
+                <!-- This down there works, but doesn't accept ANY image. Option is only of type String -->
+                <!-- <select [(ngModel)]="langValue" (change)="setValueLang()" class="selectpicker">
+                        <option *ngFor="let nt of flags" [ngValue]="nt.id">{{ nt.nt }}</option>
+                </select> -->
+            </div>
+            </td>
+        <td align="right" style="vertical-align: center">
+        </td>
+    </tr>
+</table>
+</div>
 <router-outlet></router-outlet>
+

@@ -1,0 +1,15 @@
+<div class="container col-sm-12">
+  <div class="panel-heading panel-dark"><img src="/WebConsultasEnvioA2/Imagenes/OrderList_32.png" width="32px" height="32px" align="center">  {{'ORDER DETAIL LIST'| Translate}}</div>
+  <div class="panel-body left-right-border bottom-border">
+      <table class="table table-striped">
+        <tr>
+          <th>{{'Description' | Translate }}</th>
+          <th>{{'Quantity' | Translate}} </th>
+        </tr>
+        <tr *ngFor="let o of pedidos">
+          <td class="background-important" >{{o.DES_REFERENCIA}}</td>
+          <td class="background-important" >{{o.CANTIDAD}}</td>
+        </tr>
+      </table>
+  </div>
+</div>

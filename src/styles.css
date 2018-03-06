@@ -1,1 +1,167 @@
 /* You can add global styles to this file, and also import other style files */
+.header
+{
+    background-color: grey;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#AECAF0), to(white));
+    background-image: -webkit-linear-gradient(top, #AECAF0, white);
+    background-image: -moz-linear-gradient(top, #AECAF0, white);
+    background-image: linear-gradient(to bottom, #AECAF0, white);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    text-align: left;
+    color: black;
+}
+
+.main
+{
+    background-color: lightskyblue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    align-content: center;
+    text-align: center;
+}
+
+.Label
+{
+    font-weight: bold;
+    font-size: 10pt;
+    background-color: #294865;
+}
+
+.label-value
+{
+    font-size: 10pt;
+    margin-bottom: 10pt;
+}
+
+.background-important
+{
+    
+    border-bottom: 1px solid #f0ce2d;
+    color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 9pt;
+    padding-left: 3px;
+    padding-right: 3px;
+    vertical-align: middle;
+} 
+
+.label-important
+{
+    /* color: #294865; */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 9pt;
+    font-weight: 400;
+    padding-left: 5px;
+    padding-right: 5px;
+    vertical-align: middle;
+}
+
+.label-mas-important {
+    color: white;
+    background-color: #294865;
+    border-bottom: 1px solid #f0ce2d;
+    border-bottom-left-radius: 7px;
+    border-top: 1px solid #f0ce2d;
+    border-top-right-radius: 7px;
+    border-left: 1px solid #f0ce2d;
+    border-right: 1px solid #f0ce2d;
+    
+}
+
+.buttonICP {
+    color: #294865;
+    border-left: #294865 2px dashed;
+    border-right: #294865 2px dashed;
+    border-top: #294865 2px dashed;
+    border-bottom: #294865 2px dashed;
+    padding-left: 5px;
+    background-color: #f0ce2d;
+}
+
+.table-striped {
+    background-color: white;
+}
+
+.table-striped>tr:nth-child(odd){
+    background-color:red;
+ }
+
+.miniloader {
+border: 5px solid #f3f3f3;
+border-radius: 100%;
+border-top: 5px solid #294865;
+border-bottom: 5px solid #f0ce2d;
+border-right: 5px solid #f0ce2d;
+border-left: 5px solid #f0ce2d;
+width: 28px;
+height: 28px;
+-webkit-animation: spin 2s linear infinite;
+animation: spin 1s linear infinite;
+}
+
+.loader {
+border: 5px solid #f3f3f3;
+border-radius: 100%;
+border-top: 5px solid #294865;
+border-bottom: 5px solid #f0ce2d;
+border-right: 5px solid #f0ce2d;
+border-left: 5px solid #f0ce2d;
+width: 50px;
+height: 50px;
+-webkit-animation: spin 2s linear infinite;
+animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.panel-graphic {
+background-color: white;
+}
+
+.row-label {
+    background-color: #428bca;
+    border-bottom: 3px solid #f0ce2d;
+} 
+
+.left-right-border {
+    border-left: #294865 2px dotted;
+    border-right: #294865 2px dotted;
+    padding-left: 5px;
+    background-color: white;
+}
+
+.bottom-border {
+    border-bottom: #294865 2px dotted;
+}
+
+.top-border {
+    border-top: #294865 2px dotted;
+}
+
+.label-danger-ext {
+    font-size: 18pt;
+}
+
+.panel-dark {
+    background-color: #294865;
+    color: white;
+    font-weight: bold;
+}
+
+.center-div
+{
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 3px;
+}
+

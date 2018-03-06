@@ -1,6 +1,9 @@
+// This component should be use to get particular authentication through different customers.
+// Should show a modal to let customer insert user and password
+
 import { Component, OnInit } from '@angular/core';
 import { ConsultaEnvioService } from '../../services/consulta-envio.service';
-import { Router }       from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-segurdad-list',
@@ -8,30 +11,12 @@ import { Router }       from '@angular/router';
 })
 export class SegurdadListComponent implements OnInit {
 
-  constructor(private _ce: ConsultaEnvioService, private router:Router) { }
+  constructor(private _ce: ConsultaEnvioService, private router:Router) {}
 
-  ngOnInit() {
-  }
-
-  changeText() {
-    this._ce.setText('Hello im Seguridad');
-  }
-
-  showText() {
-    console.log(this._ce.getText());
-  }
-
-  changeTextLocalStorage() {
-    this._ce.setTextLocalStorage();
-  }
-
-  showTextLocalStorage() {
-    console.log(this._ce.getTextLocalStorage());
-  }
+  ngOnInit() {}
 
   navigateTo() {
-    this.router.navigate(['detalle-pedido'])
+    this.router.navigate(['main'])
   }
-
 
 }

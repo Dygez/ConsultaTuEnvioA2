@@ -1,0 +1,41 @@
+<div *ngIf="ShowLoading();" style="text-align: center" class="container col-sm-12" width="100%" id="rotella" >
+  <label class="loader" width="100%" style="text-align: center" >
+    <img src="/WebConsultasEnvioA2/Imagenes/logoICP22x22.png">
+  </label>
+</div>
+<div [style.visibility]="_ce.isError == true || _ce.showClient == true ? 'hidden' : 'visible'" class="container col-sm-12" align="center">
+  <app-order-past-time></app-order-past-time>
+</div>
+<div [style.visibility]="_ce.showClient == true ? 'visible' : 'hidden'" class="container col-sm-12" style="position: relative;">
+  <div class="container col-sm-12 col-md-6 col-lg-6">
+    <table style="width: 100%;">
+      <tr *ngIf="_ce.providerSCL != 'BP'">
+        <td><app-detalle-pedido></app-detalle-pedido></td>
+      </tr>
+      <tr *ngIf="_ce.providerSCL == 'BP'">
+        <td><app-detalle-orden></app-detalle-orden></td>
+      </tr>
+      <tr>
+        <td>
+        <app-detalle-client></app-detalle-client></td>
+      </tr>
+      <tr>
+        <td><app-detalle-order-list></app-detalle-order-list></td>
+      </tr>
+      <tr>
+        <td>
+          <app-documents></app-documents>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="container col-sm-12 col-md-6 col-lg-6">
+    <table style="width: 100%">
+      <tr>
+        <td>
+          <app-detalle-tracking></app-detalle-tracking>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

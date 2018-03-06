@@ -4,5 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: undefined
+  production: false,
+  api:  'http://localhost:13587/api/WebICP',
+  //api: 'http://localhost:13587/WS4WApps/api/WebICP'
 };
