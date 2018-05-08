@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
+import { ConsultaEnvioService } from 'app/modules/ConsultaEnvio/services/consulta-envio.service';
+import { MainComponent } from 'app/modules/ConsultaEnvio/components/main/main.component';
 
 @Component({
   selector: 'app-order-past-time',
@@ -6,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderPastTimeComponent implements OnInit {
 
-  constructor() { }
+  constructor(public _ce: ConsultaEnvioService, public main: MainComponent) { }
 
   ngOnInit() {
+  }
+
+  ngDoCheck() {
+    if (this.main.bShowPastTime == true) {
+      this._ce.showClient = true;
+    }
   }
 
 }

@@ -1,14 +1,15 @@
-<table width="40%" align="center">
-    <div class="container col-sm-12" align="center" style="padding-top: 40%; align-content:center;">
-        <div class="panel-heading panel-dark">{{ 'Comprobante' | Translate }}</div>
-        <div class="panel-body left-right-border bottom-border">
-          <table>
-            <tr>
-              <td>
-                <img src="" noborder>
-              </td>
-            </tr>
-        </table>
-        </div>
+<div class="container col-xs-12" [@fadeInAnimation]="_ce.showClient ? true : false" id="modalBind">
+  <div class="panel-heading panel-dark left-border"><img src="./assets/user.svg" class="icon-icp"/> {{'COMPROBANTE' | Translate }}</div>
+  <div class="panel-body">
+      <!-- COMPROBANTE -->
+      <div *ngIf="comp;" class="panel-heading panel-dark left-border" align="left" on-click="hideShow()">
+              {{'COMPROBANTE' | Translate}} <span [class]="glyph"></span>
+      </div>
+      <div *ngIf="comp && !link" class="panel-body">
+            <a class="btn btn-primary" (click)="openDialog(0,1,imgComprobante)" id="i" target="#modalBind"  role="dialog" aria-expanded="false" aria-controls="mail">{{'Comprobante' | Translate}}</a>
+      </div>
+      <div *ngIf="link;" class="panel-body">
+            <a class="btn btn-primary" (click)="openDialog(0,3,imgComprobante)" id="i" target="#modalBind"  role="dialog" aria-expanded="false" aria-controls="mail">{{'Comprobante' | Translate}}</a>
+      </div>
     </div>
-  </table>
+</div>

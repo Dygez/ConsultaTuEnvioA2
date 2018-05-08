@@ -1,0 +1,19 @@
+<!-- <div [@dialog] class="center-modal-back md-dialog-container"> -->
+<div [@dialog] class="center-modal-back">
+  <div class="modal-cont">
+    <div class="modal-content">
+      <div class="modal-header"><h3><label style="font-weight: 500; color: #707d9a">{{ 'Consulta Tu Envío' | Translate }}</label>
+        <button *ngIf="closable" id="CCC" (click)="close()" aria-label="Close" type="button" class="btn btn-primary pull-right" style="z-index: 21000;">X</button></h3>
+      </div>
+      <div class="modal-body" [ngSwitch]="persistence.get('modalOpt')" align="center">
+          <div *ngSwitchCase="0" [innerHTML]="sanitizeHTML(this.inner)" style="overflow-x: auto; overflow-y: auto; height: 600px;"></div>
+          <div *ngSwitchCase="1" align="center"><img [src]="imgUrl" class="img-resp"></div>
+          <!-- <div *ngSwitchCase="2">pdf part</div> -->
+          <div *ngSwitchCase="3"><iframe [src]="imgLink" style="border: 0px" class="iframe-dim"></iframe></div>
+      </div>
+      <div class="modal-footer" style="align-content: center">
+            <img src="./assets/LogoICP.svg" width="90px" height="auto"/>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,47 +1,28 @@
-<div class="container col-sm-12">
-    <div class="panel-heading panel-dark" align="left">
-        <img src="/WebConsultasEnvioA2/Imagenes/Tracking_32.png">  {{'TRACKING' | Translate}}
+<div class="container col-xs-12" [@fadeInAnimation]="_ce.showClient ? true : false" id="modalBind">
+    <div class="panel-heading panel-dark left-border" align="left">
+        <img src="./assets/tracking.svg" class="icon-icp"> {{'TRACKING' | Translate}}
     </div>
-    <div class="panel-body left-right-border bottom-border">
-        <div class="panel-body">
-            <table class="table table-striped">
-                <tr>
-                    <th>{{'Date' | Translate}}</th>
-                    <th>{{'Hour' | Translate}}</th>
-                    <th></th>
-                    <th>{{'Detail' | Translate}}</th>
-                    <th></th>
-                </tr>
-                <tr *ngFor="let t of tracking; let i = index">
-                    <td class="background-important"> {{ t.FECHA_SEGUIMIENTO | date: 'dd/MM/yyyy' }} </td>
-                    <td class="background-important"> {{ t.HORA_SEGUIMIENTO }} </td>
-                    <td class="background-important"><img [src]="t.IMAGEN_TIPO_SEGUIMIENTO !== null ? '/WebConsultasEnvioA2/Imagenes/' + t.IMAGEN_TIPO_SEGUIMIENTO : '' "></td>
-                    <td class="background-important"> {{ t.DES_SITUACION | Translate }} </td>
-                    <td class="background-important">
-                        <a *ngIf="t.ID_TX_MAIL !== null;" class="btn btn-primary" data-toggle="collapse" href="#mail" role="button" aria-expanded="false" aria-controls="mail">E mail</a>
-                    </td>
-                </tr>
-                <tr *ngFor="let m of mailList; let i = index">
-                    <td colspan="5">
-                        <div class="collapse" id="mail">
-                                <div class="card card-body"> 
-                                    <div [innerHTML]="sanitizeHTML(m.CONTENIDO_MENSAJE)"></div>
-                                </div>
-                        </div>
-                    </td>
-                </tr>
-
-            </table>
-        </div>
-    </div>
-
-    <div *ngIf="comp;" class="panel-heading panel-dark" align="left" on-click="hideShow()">
-            <img src="/WebConsultasEnvioA2/Imagenes/x.png">   {{'COMPROBANTE' | Translate}} <span [class]="glyph"></span>
-    </div>
-    <div *ngIf="comp && !link" class="panel-body left-right-border bottom-border" [style.visibility]="hide">
-            <img *ngIf="!link;" [src]="imgComprobante" [style.visibility]="hide">
-    </div>
-    <div *ngIf="link;" class="panel-body left-right-border bottom-border" [style.visibility]="hide">
-            <a *ngIf="link;" [href]="imgComprobante">{{ 'Link' | Translate }}</a>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <tr>
+                <th>{{'Date' | Translate}}</th>
+                <th>{{'Hour' | Translate}}</th>
+                <th></th>
+                <th>{{'Detail' | Translate}}</th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let t of tracking; let i = index;">
+                <td class="background-important"> {{ t.FECHA_SEGUIMIENTO | date: 'dd/MM/yyyy' }} </td>
+                <td class="background-important"> {{ t.HORA_SEGUIMIENTO }} </td>
+                <td class="background-important">
+                    <img *ngIf="(main.SCL == 'DEFAULT' && main.sclSCL !== 15) || (main.SCL == 'BP' && main.sclSCL !== 15) ? true : false" [src]="t.IMAGEN_TIPO_SEGUIMIENTO !== null ? '/WebConsultasEnvioA2/Imagenes/' + t.IMAGEN_TIPO_SEGUIMIENTO : '' " width="22px" height="22px">
+                    <img *ngIf="main.SCL == 'ORANGE' || main.SCL == 'JAZZTEL' || main.SCL == 'NC' || main.sclSCL == 15 ? true : false" [src]="t.IMAGEN_TIPO_SEGUIMIENTO !== null ? './assets/' + t.IMAGEN_TIPO_SEGUIMIENTO : '' " width="22px" height="22px">
+                </td>
+                <td class="background-important"> {{ t.DES_SITUACION | Translate }} </td>
+                <td class="background-important">
+                    <button mat-button *ngIf="t.ID_TX_MAIL !== null;" class="btn btn-primary" (click)="openDialog(i,0,'')" id="i" aria-expanded="false" aria-controls="mail">Email</button>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>

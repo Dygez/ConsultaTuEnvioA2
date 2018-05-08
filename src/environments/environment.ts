@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  api:  'http://localhost:13587/api/WebICP',
-  //api: 'http://localhost:13587/WS4WApps/api/WebICP'
+  api: 'https://logistica.icp.es/WS4WApps/api/WebICP'
+  //api: 'http://localhost:13587/api/WebICP'
 };

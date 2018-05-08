@@ -1,48 +1,18 @@
-<div class="container col-sm-12">
-  <div class="panel-heading panel-dark"><img src="/WebConsultasEnvioA2/Imagenes/Customer_32.png" align="center">  {{'CLIENT' | Translate }}</div>
-  <div class="panel-body left-right-border">
-    <table width="90%">
-      <tr>
-        <td>
-          <label class="background-important">{{'Name Client' | Translate}}</label> <label class="label-important label-mas-important"  name="_client">{{ person.NOMBRE_CLIENTE }} </label>
-        </td>
-      </tr>
-      <tr>
-          <td colspan="2">
-          <label class="background-important">{{ 'Address Delivery' | Translate }}</label> <label class="label-important" name="_delAddress">{{ person.DIRECCION_ENTREGA }}</label>
-          </td>
-      </tr>
-      <tr>
-          <td colspan="2">
-          <label class="background-important">{{'Town' | Translate}}</label> <label class="label-important" name="_town">{{ person.POBLACION }}</label>
-          </td>
-      </tr>
-      <tr>
-          <td colspan="2">
-          <label class="background-important">{{'County' | Translate}}</label> <label class="label-important" name="_county">{{ person.PROVINCIA }}</label>
-          </td>
-      </tr>
-      <tr>
-          <td colspan="2">
-          <label class="background-important">{{'PC' | Translate}}</label> <label class="label-important" name="_pc">{{ person.CODIGO_POSTAL }}</label>
-          </td>
-      </tr>
-      <tr>
-          <td width="50%">
-            <label class="background-important"> {{'No Document' | Translate}}</label> <label class="label-important" name="_docNo">{{ person.NUMERO_DOCUMENTO }}</label>
-          </td>
-          <td width="50%">
-            <label class="background-important">{{ 'Person Contact' | Translate}}</label> <label class="label-important" name="_contact">{{ person.PERSONA_CONTACTO }}</label>
-          </td>
-      </tr>
-      <tr>
-          <td width="50%">
-            <label class="background-important">{{'Phone' | Translate}} {{'Provided' | Translate}}</label> <label class="label-important" name="_phonProv">{{ person.TELEFONO_APROVISIONAMIENTO }}</label>
-          </td>
-          <td width="50%"> 
-            <label class="background-important">{{'Phone' | Translate}}</label> <label class="label-important" name="_phone">{{ person.TELEFONO }}</label>            
-          </td>
-      </tr>
-    </table>
+<div class="container col-xs-12" [@fadeInAnimation]="_ce.showClient ? true : false">
+  <div class="panel-heading panel-dark left-border"><img src="./assets/user.svg" class="icon-icp"/> {{'CLIENT' | Translate }}</div>
+  <div class="panel-body">
+      <div class="col-xs-12 col-md-6 label-important">
+          <p><label class="normal-label">{{'Name Client' | Translate}}</label>: <label class="label-mas-important"  name="_client">{{ person.NOMBRE_CLIENTE }}</label></p>
+          <p><label class="normal-label"> {{'No Document' | Translate}}</label>: <label name="_docNo">{{ person.NUMERO_DOCUMENTO }}</label></p>
+          <p><label class="normal-label">{{ 'Person Contact' | Translate}}</label>: <label name="_contact">{{ person.PERSONA_CONTACTO }}</label></p>
+          <p><label class="normal-label">{{'Phone' | Translate}} {{'Provided' | Translate}}</label>: <label  name="_phonProv">{{ person.TELEFONO_APROVISIONAMIENTO }}</label></p>
+          <p><label class="normal-label">{{'Phone' | Translate}}</label>: <label name="_phone">{{ person.TELEFONO }}</label></p>
+        </div>
+      <div class="col-xs-12 col-md-6 label-important">
+          <p><label class="normal-label">{{ 'Address Delivery' | Translate }}</label>: <label name="_delAddress">{{ person.DIRECCION_ENTREGA }}</label></p>
+          <p><label class="normal-label">{{'Town' | Translate}}</label>: <label name="_town">{{ person.POBLACION }}</label></p>
+          <p><label class="normal-label">{{'County' | Translate}}</label>: <label name="_county">{{ person.PROVINCIA }}</label></p>
+          <p><label class="normal-label">{{'PC' | Translate}}</label>: <label name="_pc">{{ person.CODIGO_POSTAL }}</label></p>
+      </div>
   </div>
 </div>

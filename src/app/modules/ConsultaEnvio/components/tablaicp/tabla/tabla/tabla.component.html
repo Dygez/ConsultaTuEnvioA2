@@ -1,0 +1,42 @@
+<div class="container col-xs-12 tabla-container">
+
+    <div class="table table-striped" style="overflow-x: hidden" ngClass="{{tablaS || ''}}">
+      <table class="table table-list" style="border: 0px;" ngClass="{{config.className || ''}}">
+        <thead>
+          <tr>
+            <th *ngFor="let column of columns; let i = index;" class="" style="" [ngTableSorting]="config" [column]="column" (sortChanged)="onChangeTable($event)"
+              ngClass="{{column.className || ''}}">
+              <p *ngIf="!column?.hide" style="margin:0px">
+                <span>{{ column.title | Translate }}</span>
+              </p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="showFilterRow && !noData">
+            <td *ngFor="let column of columns; let i = index;" ngClass="{{column.className || ''}}">
+              <input *ngIf="column.filtering" placeholder="{{column.filtering.placeholder}}" [ngTableFiltering]="column.filtering" class="form-control"
+                style="width: 100%;" (tableChanged)="onChangeTable(config)" />
+            </td>
+          </tr>
+
+          <tr *ngFor="let row of rows; let x = index" [class]="getDatoClass(row)">
+            <td *ngFor="let column of columns; let y = index" class="{{column?.classTD}}" ngClass="{{column.className || ''}}">
+              <span (click)="cellClick($event,row, column.name)" *ngIf="!column?.isDate && !column.hasHtml && !column?.isMoney" class="{{column.classHijos}}">{{getData(row, column.name)}}
+              </span>
+            </td>
+          </tr>
+
+
+          <!-- Sin datos a mostrar -->
+          <tr *ngIf="noData">
+            <td [colSpan]="colspan" class="text-center" style="padding-top: 25px;padding-bottom: 25px;">
+              {{ 'Sin datos a mostrar' | Translate }}
+            </td>
+          </tr>
+          <!-- Fin Sin datos a mostrar -->
+
+        </tbody>
+      </table>
+    </div>
+  </div>

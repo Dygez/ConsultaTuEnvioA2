@@ -14,6 +14,8 @@ export class OrderJazztel {
     public TRANSPORTISTA: string; 
     public ALBARAN_VENTA: string;
     public DIAS_FACTURACION: number; 
+    public IMPORTO_CONTRAREEMBOLSO: number;
+    public SCL: number;
 
     constructor(){}
 }

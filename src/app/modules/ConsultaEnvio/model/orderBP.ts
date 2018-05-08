@@ -16,6 +16,8 @@ export class OrderBP {
     public ORDEN: string;
     public MAIL: string;
     public IMPORTO_CONTRAREEMBOLSO: number;
+    public CODIGO_POSTAL: any;
+    public SCL: number;
 
     constructor(){}
 }

@@ -1,8 +1,11 @@
-<div *ngIf="mostrar" class="container col-sm-12">
-  <div class="panel-heading panel-dark" align="left">
-      <img src="/WebConsultasEnvioA2/Imagenes/documents_32.png">  {{'DOCUMENTOS' | Translate}}
-  </div>
-  <div class="panel-body left-right-border bottom-border">
-      <input class="btn btn-primary" type="button" (click)="callPDF()" value="{{ 'Document' | Translate }}"><label *ngIf="mostrarLoading" class="miniloader" width="100%"></label>
-  </div>
+<div *ngIf="mostrar || comp || link" class="container col-xs-12" [@fadeInAnimation]="_ce.showClient ? true : false">
+    <div class="panel-heading panel-dark left-border" align="left">
+        <img src="./assets/download.svg" class="icon-icp"/> {{'DESCARGAS' | Translate}}
+    </div>
+    <div class="panel-body" style="text-align:center;">
+        <a *ngIf="comp && !link" class="btn btn-primary margin-buttom" (click)="openDialog(0,1,imgComprobante)" id="i" target="#modalBind"  role="dialog" aria-expanded="false" aria-controls="mail">{{'Comprobante' | Translate}}</a>
+        <a *ngIf="link;" class="btn btn-primary" (click)="openDialog(0,3,imgComprobante)" id="i" target="#modalBind" role="dialog" aria-expanded="false" aria-controls="mail">{{'Comprobante' | Translate}}</a>
+        <input *ngIf="mostrar" class="btn btn-primary margin-buttom" type="button" (click)="callPDF()" value="{{ 'Document' | Translate }}"><label *ngIf="mostrarLoading" class="miniloader" width="100%"></label>
+    </div>
 </div>
+    

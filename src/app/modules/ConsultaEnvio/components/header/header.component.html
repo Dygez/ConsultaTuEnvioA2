@@ -1,0 +1,23 @@
+<div [@fadeInAnimation]="_ce.showClient == true ? true : false" class="container col-xs-12 shadow-header" style="background:#fff !important; padding:10px 25px;">
+        <div class="container col-xs-6 col-md-4" align="center" style="overflow: hidden;">
+            <img *ngIf="bLogo !== '0' ? true : false" [src]="Logo" class="img-resp-height" style="height: 90px; padding:10px 0;" align="left" onerror="this.src='./assets/1px.png';">
+        </div>
+        <div class="container col-xs-6 col-md-4" align="center" style="vertical-align:-webkit-baseline-middle; padding-top: 8px;">
+            <h1 style="font-weight: 500; color: #707d9a;">
+                <label style="font-weight: 500; color: #707d9a;">{{ 'Consulta Tu Envío' | Translate }}</label>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-md-4" style="padding-top: 40px; z-index: 5; text-align:right;" [style.visibility]="_ce.showClient == true ? 'visible' : 'hidden'">
+            <input type="image" src="./assets/es.jpg" class="imgRounded" [(ngModel)]="langValue" (click)="setLanguage(0)">
+            <input type="image" src="./assets/en.jpg" class="imgRounded" [(ngModel)]="langValue" (click)="setLanguage(1)">
+            <input type="image" src="./assets/pt.jpg" class="imgRounded" [(ngModel)]="langValue" (click)="setLanguage(2)">
+            <input type="image" src="./assets/it.jpg" class="imgRounded" [(ngModel)]="langValue" (click)="setLanguage(3)">
+        </div>
+</div>
+<div *ngIf="!_ce.showClient" style="text-align: center" class="col-sm-12" width="100%" id="rotella" >
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<div *ngIf="this.data && this.data.length > 0">
+
+<!-- input Sercher -->
+
+    <!-- <div class="row" *ngIf="!config?.ocultarFiltroTablaICP">
+      <div class="col-md-5">
+        <div class="input-group">
+          &nbsp;&nbsp;&nbsp; -->
+          <!-- <label *ngIf="config.filtering" for="memo_id">FiltrarXXX</label> -->
+          <!-- <input *ngIf="config.filtering" class="form-control" placeholder="Buscar..." [ngTableFiltering]="config.filtering" (tableChanged)="onChangeTable(config,undefined)"
+          />
+        </div>
+      </div>
+    </div>
+    <br> -->
+
+    <app-tabla id="resultDataTable" [DatosExcel]="datosExcel" [tablaS]="scrollVar" [config]="config" *ngIf="!config.esSimple"
+      (tableChanged)="onChangeTable(config,undefined)" (cellSelected)="onCellChange($event)" (cellClicked)="onCellClick($event)"
+      [rows]="rows" [columns]="columns">
+    </app-tabla>
+    <div class="container col-xs-12" *ngIf="!hidePaginator && config.paging">
+      
+    <div *ngIf="this.records > 10">
+
+        <div>{{ 'Página' | Translate }}  {{page}}/{{numPages}} ({{records}} {{ 'elementos' | Translate }})</div>
+  
+        <div>
+          <ul class="nav pull-right" style="float: left;">
+            <li>
+              <button [disabled]="!showBtnStart" [ngClass]="showBtnStart ? 'btn-next' : 'btn-prev'" class="btn boton-paginacion" (click)="paginatorGridStart()">
+                <span class="glyphicon glyphicon-fast-backward"></span>
+              </button>
+              <button [disabled]="!showBtnPrev" [ngClass]="showBtnPrev ? 'btn-next' : 'btn-prev'" class="btn boton-paginacion" (click)="paginatorGridPrev()">
+                <span class="glyphicon glyphicon-backward"></span>
+              </button>
+              <button *ngFor="let item of numPagesObjList | slice:pageSliceStart:maxPageShow" [ngClass]="item.page === page? 'active' : ''"
+                (click)="showSelectedPage(item.page)" class="btn btn-paginador boton-paginacion">{{ item.textPage }}</button>
+              <button [disabled]="!showBtnNext" [ngClass]="showBtnNext ? 'btn-next' : 'btn-prev'" class="btn boton-paginacion" (click)="paginatorGridNext()">
+                <span class="glyphicon glyphicon-forward"></span>
+              </button>
+              <button [disabled]="!showBtnEnd" [ngClass]="showBtnEnd ? 'btn-next' : 'btn-prev'" class="btn boton-paginacion" (click)="paginatorGridEnd()">
+                <span class="glyphicon glyphicon-fast-forward"></span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+    </div>
+  
+    </div>
+  </div>
+  
+  
+  <div class="row-6" *ngIf="!this.data || this.data.length === 0">
+    <app-tabla id="resultDataTable" [columns]="columns" [noData]="noData" [colspan]="columns.length" *ngIf="!config.esSimple">
+    </app-tabla>
+  
+  </div>

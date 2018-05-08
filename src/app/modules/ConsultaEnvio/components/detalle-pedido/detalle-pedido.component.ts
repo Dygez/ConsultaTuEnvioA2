@@ -1,20 +1,34 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ConsultaEnvioService } from '../../services/consulta-envio.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Order } from '../../model/order';
 import { OrderJazztel } from 'app/modules/ConsultaEnvio/model/orderJazzTel';
+import { OrderBP } from 'app/modules/ConsultaEnvio/model/orderBP';
 import { ConexionsService } from 'app/modules/ConsultaEnvio/services/conexions.service';
 import { debug } from 'util';
 import { MainComponent } from 'app/modules/ConsultaEnvio/components/main/main.component';
 import { OrderOrange } from 'app/modules/ConsultaEnvio/model/orderOrange';
 import { PlataForma } from 'app/modules/ConsultaEnvio/model/plataforma';
-
+import { HeaderComponent } from 'app/modules/ConsultaEnvio/components/header/header.component';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import { PersistenceService } from 'angular-persistence';
+import { DepotComponent } from '../depot/depot.component';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-detalle-pedido',
-  templateUrl: './detalle-pedido.component.html'
+  templateUrl: './detalle-pedido.component.html',
+  animations: [
+    trigger('fadeInAnimation', [
+      // route 'enter' transition
+        state('true', style({ opacity: 1 })),
+        state('false', style({ opacity: 0 })),
+        transition('false <=> true', animate(1000))
+      ])
+    ]
 })
 export class DetallePedidoComponent implements OnInit {
+  @Input() colorFondo: String;
 
   loaded: boolean = false;
   transportista: string = "";
@@ -23,32 +37,44 @@ export class DetallePedidoComponent implements OnInit {
   plataformaVisible: boolean = false;
   hide: string = 'hidden';
   glyph: string = 'glyphicon glyphicon-plus';
+  timer: any;
 
   public order: Order = new Order;
   public orderJZ: OrderJazztel = new OrderJazztel;
   public orderOR: OrderOrange = new OrderOrange;
+  public orderBP: OrderBP = new OrderBP;
 
   public plataforma: PlataForma = new PlataForma;
 
-  constructor(private _ce: ConsultaEnvioService, private router: Router, private conexion: ConexionsService, private route: ActivatedRoute, private main: MainComponent) {  };
+  constructor(public _ce: ConsultaEnvioService, private router: Router, private conexion: ConexionsService, private route: ActivatedRoute, public main: MainComponent, private header: HeaderComponent,
+    public persistence: PersistenceService, public depot: DepotComponent ) {  };
 
-  ngOnInit() {  }
+  ngOnInit() { 
 
-  ngDoCheck() {
-    if (this.loaded == false && this.main.loaded == true && this._ce.providerSCL !== "NC") {
-      this.loadData();
-      this.loadPlataforma();
-    }
-  }
+    this.timer = Observable.interval(1000).subscribe( z => {
+      if (this.loaded == true && this.main.loaded == true && this._ce.providerSCL !== "NC") {
+        this.stopTimer();
+      }
+      if (this.loaded == false && this.main.loaded == true && this._ce.providerSCL !== "NC") {
+        this.loadData();
+        this.loadPlataforma();
+      }
+      this.colorFondo = this.header.COLOR_WEB;      
+    })
+   }
+
+   stopTimer() {
+      this.timer.unsubscribe();
+      this.timer = closed;
+   }
+
 
   changeGlyph() {
-    debugger;
       if (this.glyph == 'glyphicon glyphicon-plus') {
         this.glyph = 'glyphicon glyphicon-minus';
       }
       else
       {
-        debugger;
         this.glyph = 'glyphicon glyphicon-plus';
       }
       return this.glyph;
@@ -81,16 +107,20 @@ export class DetallePedidoComponent implements OnInit {
                 
                 if (this.order.TRANSPORTISTA !== null && this.transportista == "") {
                   this.transportista = orderJz.TRANSPORTISTA;
+                  this.persistence.set('transportista', orderJz.TRANSPORTISTA);
                 }
                 if (this.order.CODIGO_POSTAL !== undefined && this.codigo_postal == 0) {
                     this.codigo_postal = orderJz.CODIGO_POSTAL;
+                    this.persistence.set('codigo_postal', orderJz.CODIGO_POSTAL);
                 }
                 if (this.order.PETICION !== undefined && this.peticion == "") {
                     this.peticion = orderJz.PETICION;
+                    this.persistence.set('peticion', orderJz.PETICION)
                 }
                 })
               this.order = this.orderJZ;
               this.transportista = this.order.TRANSPORTISTA;
+              this.persistence.set('transportista', this.order.TRANSPORTISTA);
               this.loaded = true;
             }
           });
@@ -146,22 +176,101 @@ export class DetallePedidoComponent implements OnInit {
             this.order.ALBARAN_VENTA = order.ALBARAN_VENTA;
             this.order.PETICION = order.PETICION;
             this.order.DIAS_FACTURACION = order.DIAS_FACTURACION;
+            this.order.IMPORTO_CONTRAREEMBOLSO = order.IMPORTO_CONTRAREEMBOLSO;
+            this.order.SCL = order.SCL;
+
+            if (this.order.SCL !== null ){
+              this.main.sclSCL = this.order.SCL
+            }
+
             if (this.order.TRANSPORTISTA !== null && this.transportista == "") {
                 this.transportista = order.TRANSPORTISTA;
+                this.persistence.set('transportista', order.TRANSPORTISTA);
               }
             if (this.order.CODIGO_POSTAL !== undefined && this.codigo_postal == 0) {
                 this.codigo_postal = order.CODIGO_POSTAL;
+                this.persistence.set('codigo_postal', order.CODIGO_POSTAL);
             }
             if (this.order.PETICION !== undefined && this.peticion == "") {
                 this.peticion = order.PETICION;
+                this.persistence.set('peticion', order.PETICION);
+                this.main.PeticionSCL = this.peticion;
             }
               });
-            // this.loaded = true;
             }
           });
           break;
-      default:
-          break;
+        case "BP":
+              this.route.queryParams.subscribe(params => {
+                if(this.persistence.get('queryString') !== undefined && this.route !== undefined) {
+                      this.conexion.getOrderDataBP(this.persistence.get('queryString')).subscribe((order: OrderBP) =>{
+                        this.orderBP.ORDEN = order.ORDEN
+                        this.orderBP.MAIL = order.MAIL
+                        this.orderBP.ESTATUS_PETICION = order.ESTATUS_PETICION;
+                        this.orderBP.FECHA_ORDEN = order.FECHA_ORDEN;
+                        this.orderBP.DIVISION = order.DIVISION;
+                        this.orderBP.IMPORTO_CONTRAREEMBOLSO = order.IMPORTO_CONTRAREEMBOLSO;
+                        this.orderBP.TRANSPORTISTA = "--"
+                        this._ce.showClient = true;
+                        this.loaded = true;
+                      },
+                    isError => {
+                      this.stopTimer();
+                      this._ce.isError = true;
+                    },
+                  () => {
+                    this.loaded = true;
+                    this._ce.isError = false
+                  }).unsubscribe();
+                  this._ce.isError = true;
+                    }
+                })
+            break;
+
+            case "BP_PETICION":
+            this.route.queryParams.subscribe(params => {
+              if(params !== undefined && this.route !== undefined && this._ce.isError == false) {
+                const query = encodeURIComponent(params['data']);
+                this.conexion.getOrderDataBP(query).subscribe((order: Order) =>{
+                this.order.ALBARAN = order.ALBARAN;
+                this.order.CODIGO_POSTAL = order.CODIGO_POSTAL;
+                this.order.DIVISION = order.DIVISION;
+                this.order.ESTATUS_PETICION = order.ESTATUS_PETICION;
+                this.order.FECHA_ORDEN = order.FECHA_ORDEN;
+                this.order.FECHA_SALIDA = order.FECHA_SALIDA;
+                this.order.NUMERO_EXPEDICION = order.NUMERO_EXPEDICION;
+                this.order.PEDIDO_CLIENTE = order.PEDIDO_CLIENTE;
+                this.order.TRANSPORTISTA = order.TRANSPORTISTA;
+                this.order.DESCRIPCION_ESTADO = order.DESCRIPCION_ESTADO;
+                this.order.TIPO_ENVIO = order.TIPO_ENVIO;
+                this.order.DES_TIPO_ENVIO = order.DES_TIPO_ENVIO;
+                this.order.ALBARAN_VENTA = order.ALBARAN_VENTA;
+                this.order.PETICION = order.PETICION;
+                this.order.DIAS_FACTURACION = order.DIAS_FACTURACION;
+                this.order.IMPORTO_CONTRAREEMBOLSO = order.IMPORTO_CONTRAREEMBOLSO;
+                this.order.SCL = order.SCL;
+
+                this._ce.showClient = true;
+                this.loaded = true;
+
+                if (this.order.TRANSPORTISTA !== null && this.transportista == "") {
+                    this.transportista = order.TRANSPORTISTA;
+                    this.persistence.set('transportista', order.TRANSPORTISTA);
+                  }
+                if (this.order.CODIGO_POSTAL !== undefined && this.codigo_postal == 0) {
+                    this.codigo_postal = order.CODIGO_POSTAL;
+                    this.persistence.set('codigo_postal', order.CODIGO_POSTAL);
+                }
+                if (this.order.PETICION !== undefined && this.peticion == "") {
+                    this.peticion = order.PETICION;
+                    this.persistence.set('peticion', order.PETICION);
+                    this.main.PeticionSCL = this.peticion;
+                }
+                  });
+                }
+              });
+          default:
+            break;
       }
   }
 
@@ -195,6 +304,7 @@ export class DetallePedidoComponent implements OnInit {
           }
         )
         }})
+        if (this.plataforma.ID !== undefined) {this.plataformaVisible=true;} else {this.plataformaVisible=false}
         this.loaded=true;
     }
   }

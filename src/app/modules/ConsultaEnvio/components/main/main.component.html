@@ -1,41 +1,44 @@
-<div *ngIf="ShowLoading();" style="text-align: center" class="container col-sm-12" width="100%" id="rotella" >
-  <label class="loader" width="100%" style="text-align: center" >
-    <img src="/WebConsultasEnvioA2/Imagenes/logoICP22x22.png">
-  </label>
-</div>
-<div [style.visibility]="_ce.isError == true || _ce.showClient == true ? 'hidden' : 'visible'" class="container col-sm-12" align="center">
-  <app-order-past-time></app-order-past-time>
-</div>
-<div [style.visibility]="_ce.showClient == true ? 'visible' : 'hidden'" class="container col-sm-12" style="position: relative;">
-  <div class="container col-sm-12 col-md-6 col-lg-6">
+<app-header></app-header>
+<div *ngIf="bShowPastTime" class="container col-sm-12" align="center">
+    <app-order-past-time></app-order-past-time>
+  </div>
+<div [@fadeInAnimation]="_ce.showClient ? true : false" *ngIf="!bShowPastTime" [style.visibility]="bShowPastTime ? 'hidden' : 'visible'" style="padding-top: 20px" class="container col-sm-12" id="modalBind">
+  <div class="container col-sm-6 col-md-6 col-lg-6">
     <table style="width: 100%;">
-      <tr *ngIf="_ce.providerSCL != 'BP'">
+      <tr>
         <td><app-detalle-pedido></app-detalle-pedido></td>
       </tr>
-      <tr *ngIf="_ce.providerSCL == 'BP'">
+      <!-- <tr *ngIf="_ce.providerSCL == 'BP'">
         <td><app-detalle-orden></app-detalle-orden></td>
-      </tr>
+      </tr> -->
       <tr>
         <td>
         <app-detalle-client></app-detalle-client></td>
       </tr>
-      <tr>
+      <tr [@fadeInAnimationXS]="visibleOrderList">
         <td><app-detalle-order-list></app-detalle-order-list></td>
-      </tr>
-      <tr>
-        <td>
-          <app-documents></app-documents>
-        </td>
       </tr>
     </table>
   </div>
-  <div class="container col-sm-12 col-md-6 col-lg-6">
+  <div class="container col-sm-6 col-md-6 col-lg-6">
     <table style="width: 100%">
       <tr>
         <td>
           <app-detalle-tracking></app-detalle-tracking>
         </td>
       </tr>
+      <tr>
+        <td>
+          <app-documents></app-documents>
+        </td>
+      </tr>
+      <!-- <tr>
+        <td>
+          <app-descargas></app-descargas>
+        </td>
+      </tr> -->
     </table>
   </div>
 </div>
+<div class="container col-sm-12" style="visibility: hidden; height: 25px"></div>
+<app-footer></app-footer>

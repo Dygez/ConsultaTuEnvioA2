@@ -1,0 +1,23 @@
+<div class="container col-sm-12" *ngIf="plataformaVisible" [@fadeInAnimation]="_ce.showClient ? true : false" data-toggle="collapse" href="#plataforma" on-click="changeGlyph()">
+  <div class="panel-heading panel-dark left-border">
+          {{'DELEGACIÓN DE TRANSPORTE' | Translate}} <span [class]="glyph"></span></div>
+  <div class="panel-body collapse" style="padding-top: 20px;" id="plataforma">
+      <div class="col-xs-12 col-md-6 label-important">
+          <p><label class="normal-label" i18n>{{'Codigo Oficina' | Translate}}</label>: <label  name="_delivery">{{ plataforma.PLAZA }}</label></p>
+          <p><label class="normal-label" i18n>{{'Oficina' | Translate}}</label>: <label name="_delivery">{{ plataforma.NOMBRE_OFICINA }} </label></p>
+          <p><label class="normal-label" i18n>{{'Localidad' | Translate}}</label>: <label name="_delivery">{{ plataforma.POBLACION_OFICINA }} </label></p>
+          <p><label class="normal-label" i18n>{{'PC' | Translate}}</label>: <label name="_delivery">{{ plataforma.CP_OFICINA }} </label></p>
+          <p><label class="normal-label" i18n>{{'Tfno.' | Translate}}</label>: <label name="_delivery">{{ plataforma.TELEFONO }} </label></p>
+          <p><label class="normal-label" i18n>{{'Horario Oficina' | Translate}}</label>: <label name="_delivery">{{ plataforma.HORARIO }} </label></p>
+      </div>
+      <div class="col-xs-12 col-md-6 label-important">
+          <p><label class="normal-label" i18n>{{'Plaza' | Translate}}</label>: <label name="_delivery">{{ plataforma.PLAZA }} </label></p>
+          <p><label class="normal-label" i18n>{{'Dirección' | Translate}}</label>: <label name="_delivery">{{ plataforma.DIRECCION_OFICINA }} </label></p>
+          <p><label class="normal-label" i18n>{{'Provincia' | Translate}}</label>: <label name="_delivery">{{ plataforma.PROVINCIA }} </label></p>
+          <p><label class="normal-label" i18n>{{'Email' | Translate}}</label>: <label name="_delivery">{{ plataforma.EMAIL }} </label></p>
+          <p></p>
+      </div>
+  </div>
+</div>
+
+<div class="container col-sm-12" *ngIf="plataformaVisible" style="visibility: hidden; height: 25px"></div>

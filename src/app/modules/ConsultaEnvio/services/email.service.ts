@@ -8,74 +8,51 @@ import { Http } from '@angular/http';
 @Injectable()
 export class GiveEmail {
 
-    Mail: Email = new Email;
+    //Mail: Email = new Email;
+    public BunchMail: Email[] = Array<Email>();
 
     constructor(private http: Http, private conexion: ConexionsService) {}
 
-    returnMail(id_tx: string): Email {
-         if (id_tx !== null) {
-            let mailProm = new Promise<Email>((resolve, reject) => {
+    returnMail(id_tx: string, index: number): Email {
+            if (id_tx !== null) {
+                let Mail: Email = new Email;
                 const url = `${environment.api}/getmail?urldata=${id_tx}`;
-                this.http.get(url).map(this.conexion.obtenerJson).toPromise().then(
-                    res => {
-                      resolve(res);
-                      this.Mail.SCL = res.SCL;
-                      this.Mail.DESTINATARIOS = res.DESTINATARIOS;
-                      this.Mail.CONTENIDO_MENSAJE = res.CONTENIDO_MENSAJE;
-                      this.Mail.TIPO_MAIL = res.TIPO_MAIL;
-                    //   return res;
-                    },
-                    msg => {
-                      reject(msg);
-                    }
-                  ).catch(dError => {
-                  });
+                this.http.get(url).map(this.conexion.obtenerJson).subscribe(mail => {
+                    Mail.SCL = mail.SCL;
+                    Mail.DESTINATARIOS = mail.DESTINATARIOS;
+                    Mail.CONTENIDO_MENSAJE = mail.CONTENIDO_MENSAJE;
+                    Mail.TIPO_MAIL = mail.TIPO_MAIL;
+                    Mail.ID = index;                        
                 });
-                return this.Mail;
-            }
-            else {
-                return undefined;
+                this.BunchMail.push(Mail);
+                return Mail;
             }
         }
+}                
 
 
-
-
-
-
-        //     debugger;
-        //     this.conexion.getEmailP(id_tx).then((res) => {
-        //         debugger;
-        //         console.log(res.SCL);
-        //         return res.CONTENIDO_MENSAJE;
-        //     })
-
-        //     let prom = new Promise<Email>(res => {
-        //         debugger;
-        //         this.conexion.getEmailP(id_tx).then(f => {
-        //             debugger;
-        //             return prom.then;
-        //             // if (prom.then !== null) {return prom.then;} else {return ''}
-        //         });
-        //     });
-
-
-
-
-        // debugger;
-        // if (id_tx !== null) {
-
-        //     this.conexion.getEmail(id_tx).subscribe((sms: Email) => {
-        //         debugger;
-        //            this.Mail.SCL = sms.SCL;
-        //            this.Mail.DESTINATARIOS = sms.DESTINATARIOS;
-        //            this.Mail.TIPO_MAIL = sms.TIPO_MAIL;
-        //           this.Mail.CONTENIDO_MENSAJE = sms.CONTENIDO_MENSAJE;
-        //         });
-        //     return this.Mail.CONTENIDO_MENSAJE; //!(this.Mail.CONTENIDO_MENSAJE);
-        // }
-        // else {
-        //     return ''
-        // }
-    
-}
+                // let mailProm = new Promise<Email>((resolve, reject) => {
+                //     const url = `${environment.api}/getmail?urldata=${id_tx}`;
+                //     this.http.get(url).map(this.conexion.obtenerJson).toPromise().then(
+                //         async res => {
+                //         await resolve(res);
+                //         this.Mail.SCL = res.SCL;
+                //         this.Mail.DESTINATARIOS = res.DESTINATARIOS;
+                //         this.Mail.CONTENIDO_MENSAJE = res.CONTENIDO_MENSAJE;
+                //         this.Mail.TIPO_MAIL = res.TIPO_MAIL;
+                //         this.Mail.ID = index;
+                //         //   return res;
+                //         },
+                //         msg => {
+                //         reject(msg);
+                //         }
+                //     ).catch(dError => {
+                //     });
+                //     });
+                //     //this.BunchMail.push(this.Mail);
+                //     //console.log(this.Mail);
+                //     return this.Mail;
+                // }
+                // else {
+                //     return undefined;
+                // }

@@ -6,16 +6,23 @@ import { MainComponent } from './components/main/main.component';
 import { TranslationService } from './services/translation.service';
 import { TranslationPipe } from 'app/modules/ConsultaEnvio/pipes/translation.pipe';
 import { GiveEmail } from './services/email.service';
-import { PaginationComponent } from './components/pagination/pagination.component';
 import { OrderPastTimeComponent } from './components/order-past-time/order-past-time.component';
 import { AuthenticationComponent } from './components/authentication/authentication.component';
-import { DetalleOrdenComponent } from './components/detalle-orden/detalle-orden.component';
 import { ComprobanteComponent } from './components/comprobante/comprobante.component';
 import { EmailComponent } from './components/email/email.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { SmsPipe } from './pipes/sms.pipe';
-import { DocumentsComponent } from './components/documents/documents.component'
+import { DocumentsComponent } from './components/documents/documents.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { ModalTemplateComponent } from './components/modal-template/modal-template.component';
+import { TablaicpComponent } from './components/tablaicp/tablaicp.component';
+import { NgTableFilteringDirective } from './directives/ng-table-filtering.directive';
+import { NgTableSortingDirective } from './directives/ng-table-sorting.directive';
+import { TablaComponent } from './components/tablaicp/tabla/tabla/tabla.component';
+import { DepotComponent } from './components/depot/depot.component';
+
 
 @NgModule({
   imports: [
@@ -25,7 +32,7 @@ import { DocumentsComponent } from './components/documents/documents.component'
     ReactiveFormsModule
   ],
   exports:[ ConsultaEnvioRouting, components ],
-  declarations: [ components, OrderPastTimeComponent, DetalleOrdenComponent, ComprobanteComponent, EmailComponent, SmsPipe, DocumentsComponent ],
-  providers:[ ConsultaEnvioService, TranslationService, TranslationPipe, GiveEmail ]
+  declarations: [ components, OrderPastTimeComponent, ComprobanteComponent, EmailComponent, SmsPipe, DocumentsComponent, HeaderComponent, FooterComponent, ModalTemplateComponent, TablaicpComponent, NgTableFilteringDirective, NgTableSortingDirective, TablaComponent, DepotComponent ],
+  providers:[ ConsultaEnvioService, TranslationService, TranslationPipe, GiveEmail, HeaderComponent ]
 })
 export class ConsultaEnvioModule { }

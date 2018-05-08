@@ -18,16 +18,16 @@ export class ConsultaEnvioService {
 
     public bQuery: boolean = false;
     public authenticated: boolean = false;
+    public toAuthenticate: boolean = true;
     public isError: boolean = true;
     public providerSCL: string = "";
     public status: number = 0;
     public isProduction = environment.production;
-    public showClient: boolean = false;
+    public showClient: boolean;
     public fichero: ByteString;
     dataBlob: Blob;
 
     constructor(private http: Http, private router: Router, private route: ActivatedRoute, private persistence: PersistenceService) {
-        this.getQueryString();
     }
 
     public getSCL(key: string): string {
@@ -44,24 +44,9 @@ export class ConsultaEnvioService {
         return this.http.get(url).map(this.obtenerJson).catch(this.controlarError);
         };
 
-    public getQueryString(){
-        let url_string = window.location.href;
-        let url = new URL(url_string);
-        let d: string = "";
-        try {
-            d = url.searchParams.get("data");
-        } catch (error) {
-            d = ''
-        } finally 
-        {
-            return d
-        }
-      };
-
     public getInfo(): Observable<any> {
         let url_string = window.location.href;
         let url = new URL(url_string)
-        // passando dal post va in errore, mentre con il get funziona todos.
         return this.http.get(url_string).map(this.getJson).catch(this.controlarError);
     }
 

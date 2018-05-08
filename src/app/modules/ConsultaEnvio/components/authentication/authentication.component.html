@@ -1,35 +1,42 @@
-<table width="40%" align="center">
-  <div class="container col-sm-12" align="center" style="padding-top: 40%; align-content:center;">
-      <div class="panel-heading panel-dark">{{ 'Authentication' | Translate }}</div>
-      <div class="panel-body left-right-border bottom-border">
-        <table>
-          <tr>
-            <td>
-            </td>
-            <td>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input type="text" class="form-control label-important" placeholder="NIF" (input)="getValueNIF($event)">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-            </td>
-            <td>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                <input type="text" class="form-control label-important" placeholder="Codigo Postal" (input)="getValueCP($event)">
-              </div>
-            </td>
-          </tr>
-          <tr style="height: 10px"><td></td></tr>
-          <tr>
-            <td colspan="2" align="center">
-              <input class="background-important btn" type="button" (click)="this.authenticate()" value="{{ 'Autenticar' | Translate }}">
-            </td>
-          </tr>
-      </table>
-      </div>
-  </div>
-</table>
+<app-header></app-header>
+  <table width="40%" align="center">
+    <div class="container col-xs-12" align="center" style="padding-top: 30%; align-content:center;" [@fadeInAnimation]>
+        <div class="panel-heading panel-dark left-border">{{ 'Authentication' | Translate }}</div>
+        <!-- [style.background-color]="main.colorWeb" -->
+        <div class="panel-body">
+          <table>
+            <tr>
+              <td>
+              </td>
+              <td>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <input type="text" class="form-control label-important" placeholder="NIF" (input)="getValueNIF($event)">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+              </td>
+              <td>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                  <input type="text" class="form-control label-important" placeholder="Codigo Postal" (input)="getValueCP($event)">
+                </div>
+              </td>
+            </tr>
+            <tr style="height: 10px"><td></td></tr>
+            <tr>
+              <td colspan="2" align="center">
+                <input class="background-important btn" type="button" (click)="this.authenticate()" value="{{ 'Autenticar' | Translate }}">
+              </td>
+            </tr>
+            <tr *ngIf="this.message != ''">
+                <td colspan="2" align="center">
+                  <h4><label class="label label-danger">{{ this.message | Translate }}</label></h4>
+                </td>
+              </tr>
+        </table>
+        </div>
+    </div>
+  </table>

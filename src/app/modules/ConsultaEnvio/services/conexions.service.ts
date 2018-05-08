@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output } from '@angular/core';
 import { Http, Response, URLSearchParams, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -17,11 +17,17 @@ import { PersistenceService } from 'angular-persistence/src/services/persistence
 import { Image } from 'app/modules/ConsultaEnvio/model/image';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlataForma } from 'app/modules/ConsultaEnvio/model/plataforma';
+import { SCL } from 'app/modules/ConsultaEnvio/model/scl';
+import { Logo } from 'app/modules/ConsultaEnvio/model/logo';
 
 @Injectable()
 export class ConexionsService {
 
+@Output() LogoA: boolean;
+
 mail: Response;
+Logo: Logo;
+isTicketJazztel: boolean = false;
 
   constructor(private http: Http, private persistence: PersistenceService, private route: ActivatedRoute) {}
 
@@ -46,6 +52,21 @@ mail: Response;
     return this.http.get(url).map(this.obtenerJson).catch(this.controlarError.bind(this));
   };
 
+  
+
+  // return a queryString starting from ticket (ex: [...]/main?ticket_cliente=BQ_100764319_45940)
+  public getQueryStringFromTicket(text: string): Observable<string> {
+    const url = `${environment.api}/main?ticket_cliente=${text}`;
+    return this.http.get(url).map(this.obtenerJson).catch(this.controlarError.bind(this));
+  }
+
+  // return a queryString starting from ticket (ex: [...]/main?ticket_cliente=BQ_100764319_45940)
+  public getQueryStringFromTicketJazztel(text: string): Observable<string> {
+    const url = `${environment.api}/main?ticket_jazztel=${text}`;
+    debugger;
+    return this.http.get(url).map(this.obtenerJson).catch(this.controlarError.bind(this));
+  }
+
   // get the specific Orange order
   public getOrderDataOrange(text: string): Observable<OrderOrange> {
     text=this.persistence.get('queryString');
@@ -55,14 +76,32 @@ mail: Response;
 
   // get the customer info
   // this is the first interaction going through the web service. Saving the querystring.
+  // this manage the different param name. Sometimes it cames something like "/main?ticket_cliente=" instead of "/main?data="
   public getClienteData(text: string): Observable<Person>{
-    if (this.persistence.get('queryString') !== undefined)
+    if (this.persistence.get('queryString') !== 'undefined')
       {
         text=this.persistence.get('queryString');
         const url = `${environment.api}/cliente?urldata=${text}`;
         return this.http.get(url).map(this.obtenerJson).catch(this.controlarError.bind(this));    
       }
     else {
+      this.route.queryParams.subscribe(params => {
+        const ticket = params['ticket_cliente'];
+        const ticket_jz = params['ticket_jazztel'];
+        const data = params['data'];
+        if (ticket !== undefined) {
+          this.getQueryStringFromTicket(ticket).subscribe((t: string) => { 
+            debugger;
+            this.persistence.set('queryString', t);
+          });
+        };
+        if (ticket_jz !== undefined) {
+          this.getQueryStringFromTicketJazztel(ticket_jz).subscribe((t: string) => {
+            this.isTicketJazztel = true;
+            this.persistence.set('queryString', t);
+          })};
+      })
+
       this.route.queryParams.subscribe(params => 
         {
           const query = encodeURIComponent(params['data']);
@@ -107,15 +146,14 @@ public getDocument(text: string): Observable<any[]> {
 
   // plataforma 
   public getPlataforma(peticion: string, transportista: string, cp: number): Observable<PlataForma> {
-    // const url = `${environment.api}/plataforma_a2?transportista=`+`${transportista}`+`&`+`peticion=${peticion}`+`&`+`cp=${cp}&inv=0`;
     const url = `${environment.api}/plataforma_a2/`+`${transportista}`+`/`+`${peticion}`+`/`+`${cp}/0`;
     return this.http.get(url).map(this.obtenerJson).catch(this.controlarError.bind(this));
  }
 
   // get SCL
-    public getSCL(text: string): Observable<number> {
+    public getSCL(text: string): Observable<SCL> {
     text=this.persistence.get('queryString');
-    const url = `${environment.api}/authentication?urldata=${text}`;
+    const url = `${environment.api}/scl?urldata=${text}`;
     return this.http.get(url).map(this.obtenerJson).catch(this.controlarError.bind(this));
    }
 
@@ -131,6 +169,34 @@ public getDocument(text: string): Observable<any[]> {
     const url = `${environment.api}/getmail?urldata=${text}`;
     return this.http.get(url).map(this.obtenerJson).catch(this.controlarError.bind(this));
   }
+
+  public getLogoSCL(text: string, peticion: string, scl: number): Observable<String> {
+     const url = `${environment.api}/getLogoSCL/`+`${peticion}`+`/`+`${scl}`;
+    return this.http.get(url).map(this.obtenerJson).catch(this.controlarError.bind(this));
+  }
+
+  public getLogoICP(scl: number): Observable<any>{
+    const url = `${environment.api}/optLogo/`+`${scl}`;
+    return this.http.get(url).map(this.obtainScl).catch(this.controlarError.bind(this));
+    }
+
+    public getPromiseLogo(scl: number): Promise<Logo>{
+      const url = `${environment.api}/optLogo/`+`${scl}`;
+      let p = new Promise((resolve, reject) => {
+        this.http.get(url).map(this.obtainScl).toPromise().then(
+          res => {
+            resolve(res);
+            return res;
+          },
+          msg => {
+            reject(msg);
+          }
+        ).catch(error => {
+
+        });
+      });
+      return undefined;
+    }
 
   public getEmailP(text: string): Promise<Email> {
     const url = `${environment.api}/getmail?urldata=${text}`;
@@ -149,11 +215,29 @@ public getDocument(text: string): Observable<any[]> {
     return undefined;
   }
 
+  public obtainScl(res: Response) {
+    const respuestaJson = res.json();
+    if (res.status > 200){
+      return { LOGOICP: true , LOGOSCL: false, COLOR_WEB: "" };
+    } 
+    if (respuestaJson.IsError) {
+      //return Observable.throw("Error");;
+      return { LOGOICP: true , LOGOSCL: false, COLOR_WEB: "" };
+    }
+    this.Logo = { LOGOICP: respuestaJson.logoicp , LOGOSCL: respuestaJson.logoscl, COLOR_WEB: respuestaJson.colorweb }
+    return this.Logo || {};
+  };
+
 
   public obtenerJson(res: Response) {
     const respuestaJson = res.json();
     if (respuestaJson.IsError) {
       return Observable.throw("");;
+    }
+    if (respuestaJson.data == null) {
+      respuestaJson.IsError = true;
+      //return respuestaJson.data || {};
+      return null;
     }
     return respuestaJson.data || {};
   };

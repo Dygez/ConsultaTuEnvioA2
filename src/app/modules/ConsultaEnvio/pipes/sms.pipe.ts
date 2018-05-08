@@ -18,9 +18,7 @@ export class SmsPipe implements PipeTransform {
 
  transform(value: string, args: string[]) {
    if (value !== null) {
-     //console.log(this.gMail.returnMail(value).CONTENIDO_MENSAJE)
-     return this.sanitized.bypassSecurityTrustHtml(this.gMail.returnMail(value).CONTENIDO_MENSAJE)
-    //  return this.gMail.returnMail(value).CONTENIDO_MENSAJE;
+     return this.sanitized.bypassSecurityTrustHtml(this.gMail.returnMail(value,0).CONTENIDO_MENSAJE)
     }
     else {
       return '' 
